@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Feliz Cumpleaños! 🎉</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            width: 100%;
+        }
+
+        h1 {
+            color: #764ba2;
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .emoji {
+            font-size: 4em;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            font-size: 1.5em;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            margin: 30px 0;
+        }
+
+        .button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .button:active {
+            transform: translateY(-2px);
+        }
+
+        .content {
+            margin-top: 30px;
+            min-height: 400px;
+            display: none;
+        }
+
+        .content.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .image-container {
+            margin-bottom: 20px;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .message {
+            font-size: 1.5em;
+            color: #333;
+            margin-top: 20px;
+            font-weight: bold;
+            line-height: 1.6;
+        }
+
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #f0f;
+            position: absolute;
+            animation: confetti-fall 3s linear;
+        }
+
+        @keyframes confetti-fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="emoji">🎂🎈🎉</div>
+        <h1>Tu Gemelier te desea <br> ¡Feliz Cumpleaños!</h1>
+        
+        <button class="button" onclick="mostrarSorpresa()">
+            🎁 ¡Haz clic aquí para recibir tu bendición! 🎁
+        </button>
+
+        <div class="content" id="content">
+            <div class="image-container">
+                <img id="birthdayImage" src="" alt="Felicitación de cumpleaños">
+            </div>
+            <div class="message" id="message"></div>
+        </div>
+    </div>
+
+    <script>
+        const imagenes = [
+            { src: 'img1.jpg', texto: 'La bendición de EduHitler: ¡Que todos tus deseos se hagan realidad! 🌟' },
+            { src: 'img2.jpg', texto: 'La bendición de Edown: ¡Eres increíble! Que tengas un día maravilloso 🎊' },
+            { src: 'img3.jpg', texto: 'La bendición de Peduano: ¡Celebra este día especial con mucha alegría! 🥳' },
+            { src: 'img4.jpg', texto: 'La bendición de EduOzil: ¡Que este nuevo año de vida esté lleno de felicidad! 🎈' }
+        ];
+
+        function mostrarSorpresa() {
+            // Seleccionar una imagen aleatoria
+            const indiceAleatorio = Math.floor(Math.random() * imagenes.length);
+            const sorpresa = imagenes[indiceAleatorio];
+
+            // Actualizar imagen y texto
+            document.getElementById('birthdayImage').src = sorpresa.src;
+            document.getElementById('message').textContent = sorpresa.texto;
+
+            // Mostrar el contenido
+            const content = document.getElementById('content');
+            content.classList.remove('show');
+            // Pequeño delay para reiniciar la animación
+            setTimeout(() => {
+                content.classList.add('show');
+            }, 10);
+
+            // Crear confetti
+            crearConfetti();
+        }
+
+        function crearConfetti() {
+            const colores = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
+            
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.style.position = 'fixed';
+                    confetti.style.width = Math.random() * 10 + 5 + 'px';
+                    confetti.style.height = Math.random() * 10 + 5 + 'px';
+                    confetti.style.background = colores[Math.floor(Math.random() * colores.length)];
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.top = '-10px';
+                    confetti.style.borderRadius = '50%';
+                    confetti.style.pointerEvents = 'none';
+                    confetti.style.zIndex = '1000';
+                    confetti.style.animation = `confetti-fall ${Math.random() * 3 + 2}s linear`;
+                    
+                    document.body.appendChild(confetti);
+                    
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, 5000);
+                }, i * 50);
+            }
+        }
+    </script>
+</body>
+</html>
